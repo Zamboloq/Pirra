@@ -22,31 +22,33 @@
 
 ## 📦 System Architecture & Component Mapping
 
+```mermaid
+graph TD
+    %% Define Server Nodes
+    KTOR["🔌 Ktor WebSocket Backend<br>(Sovereign Engine)"]
+    
+    %% Define Mobile Modules
+    NET["🌐 :core-network Module<br>(Ktor WS Client)"]
+    DATA["🧠 :core-data Module<br>(Domain Logic / Repository)"]
+    ROOM["💾 Local Room Database<br>(Encrypted Local DB)"]
+    UI["📱 :feature-chat Module<br>(Jetpack Compose UI - MVI)"]
+    RUST["🛡️ :core-crypto Module<br>(Native Rust Core Engine)"]
 
-┌────────────────────────────────────────┐
-│ Ktor WebSocket Backend 	               │
-│ (Sovereign Engine) 		                 │
-└───────────────────▲────────────────────┘
-│
-WebSockets (WS)
-│
-┌───────────────────▼────────────────────┐
-│ :core-network Module 		               │
-└───────────────────▲────────────────────┘
-│
-Repository
-│
-┌─────────────────────────┐         ┌───────────▼──────────┐       ┌────────────────────────┐
-│ :feature-chat (MVI) 		│  ◄──►	  │ 	:core-data Module  │	◄──► │ Local Room Database	  │
-│ (Jetpack Compose UI) 		│ 		    │ 	(Domain Logic) 		 │       │ (Encrypted Local DB)   │
-└─────────────────────────┘         └───────────▲──────────┘       └────────────────────────┘
-│
-UniFFI/JNA
-│
-┌───────────────────▼────────────────────┐
-│ :core-crypto (Rust) 		               │
-│ [Native Binary Core] 		               │
-└────────────────────────────────────────┘
+    %% Define Network and Architectural Flows
+    KTOR <-->|"WebSockets (WS)"| NET
+    NET <-->|"Repository Pipeline"| DATA
+    DATA <-->|"Reactive Flows"| ROOM
+    DATA <-->|"MVI States / Events"| UI
+    DATA <-->|"UniFFI / JNA Interop"| RUST
+
+    %% Styling Elements for Visual Anchors
+    style KTOR fill:#5C2D91,stroke:#333,stroke-width:2px,color:#fff
+    style RUST fill:#E11D48,stroke:#333,stroke-width:2px,color:#fff
+    style UI fill:#3DDC84,stroke:#333,stroke-width:2px,color:#000
+    style DATA fill:#0284C7,stroke:#333,stroke-width:1px,color:#fff
+    style ROOM fill:#4B5563,stroke:#333,stroke-width:1px,color:#fff
+    style NET fill:#0EA5E9,stroke:#333,stroke-width:1px,color:#fff
+```
 
 ---
 
