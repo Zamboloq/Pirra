@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "589980430571",
+    "project_id": "pirra-a77d0",
+    "storage_bucket": "pirra-a77d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589980430571:android:ae43e0e8ac3409be400eae",
+        "android_client_info": {
+          "package_name": "com.pirra.chat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj3x1bG-bqfBg74EAVGb-L6WrXUctaV5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
