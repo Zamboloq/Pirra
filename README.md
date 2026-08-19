@@ -2,7 +2,7 @@
 
 <p align="left">
   <code><b>Platform:</b> Android (API 35)</code> | 
-  <code><b>Languages:</b> Kotlin / Rust Core</code> | 
+  <code><b>Languages:</b> Kotlin / 🦀 Rust Core</code> | 
   <code><b>Backend:</b> Standalone Ktor HTTP</code> | 
   <code><b>Architecture:</b> MVI + Clean</code>
 </p>
@@ -16,6 +16,18 @@
   <img src="https://shields.io" alt="Ktor" />
   <img src="https://shields.io" alt="Architecture" />
 </p>
+
+# 🔒 Pirra — Secure distributed Cryptographic Messaging Platform
+
+<p align="left">
+  <img src="https://githubusercontent.com" alt="Android API 35" height="28" />
+  <img src="https://vectorlogo.zone" alt="Kotlin" height="28" />
+  <img src="https://vectorlogo.zone" alt="Ktor Backend" height="28" />
+  <img src="https://vectorlogo.zone" alt="Rust Core" height="28" />
+</p>
+
+**Pirra** is a high-performance, decentralized, end-to-end encrypted messaging application architected for total communication privacy. By fusing a compiled native **Rust Core Engine** into a modern modular **Android (Kotlin)** UI stack and an independent **Ktor WebSocket backend**, Pirra achieves military-grade cryptographic secrecy with zero third-party dependencies.
+
 
 
 **Pirra** is a high-performance, decentralized, end-to-end encrypted messaging application architected for total communication privacy. By fusing a compiled native **Rust Core Engine** into a modern modular **Android (Kotlin)** UI stack and an independent **Ktor WebSocket backend**, Pirra achieves military-grade cryptographic secrecy with zero third-party dependencies.
