@@ -1,12 +1,11 @@
 # 🔒 Pirra — Secure distributed Cryptographic Messaging Platform
 
 <p align="left">
-  <img src="https://shields.io" alt="Platform" />
-  <img src="https://shields.io" alt="Language" />
-  <img src="https://shields.io" alt="Backend" />
-  <img src="https://shields.io" alt="Architecture" />
+  <code><b>Platform:</b> Android (API 35)</code> | 
+  <code><b>Languages:</b> Kotlin / Rust Core</code> | 
+  <code><b>Backend:</b> Standalone Ktor HTTP</code> | 
+  <code><b>Architecture:</b> MVI + Clean</code>
 </p>
-
 
 **Pirra** is a high-performance, decentralized, end-to-end encrypted messaging application architected for total communication privacy. By fusing a compiled native **Rust Core Engine** into a modern modular **Android (Kotlin)** UI stack and an independent **Ktor WebSocket backend**, Pirra achieves military-grade cryptographic secrecy with zero third-party dependencies.
 
@@ -27,34 +26,76 @@
 
 ```mermaid
 graph TD
-    %% Define Server Nodes
-    KTOR["🔌 Ktor WebSocket Backend<br>(Sovereign Engine)"]
-    
-    %% Define Mobile Modules
-    NET["🌐 :core-network Module<br>(Ktor WS Client)"]
-    DATA["🧠 :core-data Module<br>(Domain Logic / Repository)"]
-    ROOM["💾 Local Room Database<br>(Encrypted Local DB)"]
-    UI["📱 :feature-chat Module<br>(Jetpack Compose UI - MVI)"]
-    RUST["🛡️ :core-crypto Module<br>(Native Rust Core Engine)"]
+    %% --- Standalone Backend Ecosystem ---
+    subgraph Standalone_Backend [Sovereign Backend Ecosystem]
+        KTOR_SERVER["🔌 Ktor Netty Server<br>Mapped on Port 8080"]
+        MEM_QUEUE["📥 memoryMessagesQueue<br>(Thread-Safe Cache ConcurrentHashMap)"]
+        KTOR_SERVER <--> MEM_QUEUE
+    end
 
-    %% Define Network and Architectural Flows
-    KTOR <-->|"WebSockets (WS)"| NET
-    NET <-->|"Repository Pipeline"| DATA
-    DATA <-->|"Reactive Flows"| ROOM
-    DATA <-->|"MVI States / Events"| UI
-    DATA <-->|"UniFFI / JNA Interop"| RUST
+    %% --- Core Network Module ---
+    subgraph Core_Network_Module [:core-network Module]
+        API_SERVICE["⚙️ PirraApiService<br>(Network Interface)"]
+        API_IMPL["🌐 PirraApiServiceImpl<br>(Ktor HTTP Client Engine via CIO)"]
+        PAYLOAD_DTO["📦 ChatPayloadDto<br>(Generic Multi-Media JSON Model)"]
+        
+        API_SERVICE --> API_IMPL
+        API_IMPL --> PAYLOAD_DTO
+    end
 
-    %% Styling Elements for Visual Anchors
-    style KTOR fill:#5C2D91,stroke:#333,stroke-width:2px,color:#fff
-    style RUST fill:#E11D48,stroke:#333,stroke-width:2px,color:#fff
-    style UI fill:#3DDC84,stroke:#333,stroke-width:2px,color:#000
-    style DATA fill:#0284C7,stroke:#333,stroke-width:1px,color:#fff
-    style ROOM fill:#4B5563,stroke:#333,stroke-width:1px,color:#fff
-    style NET fill:#0EA5E9,stroke:#333,stroke-width:1px,color:#fff
+    %% --- Core Data Module ---
+    subgraph Core_Data_Module [:core-data Module]
+        REPO["🧠 ChatRepositoryImpl<br>(Clean Architecture Single Source of Truth)"]
+        MAPPER["🔄 Data Mappers<br>(Domain Message <---> ChatPayloadDto)"]
+        ROOM_DB["💾 Local Room Database<br>(Encrypted Cache SQLite Storage)"]
+        
+        REPO --> MAPPER
+        REPO <--> ROOM_DB
+    end
+
+    %% --- Core Crypto Module ---
+    subgraph Core_Crypto_Module [:core-crypto Module]
+        UNIFFI["🔗 UniFFI / JNA Interop Layer<br>(Dynamic Foreign Function Interface)"]
+        RUST_CORE["🛡️ Native Rust Core Engine<br>(Memory-Safe High-Performance Cryptography)"]
+        RUST_CIPHER["🔒 AES-GCM / ChaCha20<br>(Per-Message Ephemeral Key Ratchet)"]
+        
+        UNIFFI --> RUST_CORE
+        RUST_CORE --> RUST_CIPHER
+    end
+
+    %% --- Feature Chat Module ---
+    subgraph Feature_Chat_Module [:feature-chat Module]
+        UI_VIEW["📱 Jetpack Compose UI Layouts<br>(Material 3 Chat Screen Bubble)"]
+        MVI_VM["⚡ ChatViewModel<br>(Unidirectional MVI State Machine)"]
+        AUDIO_ENG["🎙️ AudioRecord / AudioTrack<br>(PCM Capture / Telemetry Pipeline)"]
+        IMAGE_ENG["📷 Photo Picker Engine<br>(API 35 Compliant Memory Scaling)"]
+        
+        UI_VIEW <--> MVI_VM
+        MVI_VM --> AUDIO_ENG
+        MVI_VM --> IMAGE_ENG
+    end
+
+    %% --- Global Dependency & Communication Vectors ---
+    KTOR_SERVER <-->|"HTTP POST /send & GET /get<br>(Magic IP Loopback 10.0.2.2)"| API_IMPL
+    PAYLOAD_DTO <-->|"Network Staging Data"| MAPPER
+    MAPPER <-->|"Network Staging Data"| REPO
+    REPO <-->|"State Actions / Intents"| MVI_VM
+    REPO <-->|"Native Invocation Bindings"| UNIFFI
+
+    %% --- Node Color Scheme Customizations ---
+    style KTOR_SERVER fill:#5C2D91,stroke:#333,stroke-width:2px,color:#fff
+    style RUST_CORE fill:#E11D48,stroke:#333,stroke-width:2px,color:#fff
+    style UI_VIEW fill:#3DDC84,stroke:#333,stroke-width:2px,color:#000
+    style REPO fill:#0284C7,stroke:#333,stroke-width:2px,color:#fff
+    style ROOM_DB fill:#4B5563,stroke:#333,stroke-width:1px,color:#fff
+    style API_IMPL fill:#0EA5E9,stroke:#333,stroke-width:1px,color:#fff
 ```
 
 ---
 
+## 🔄 Multi-Media Message Lifecycle Flow
+
+```mermaid
 sequenceDiagram
     autonumber
     actor User as 📱 Sender Client
@@ -77,7 +118,7 @@ sequenceDiagram
     VM->>REPO: Delegates asset transfer payload inside Domain Message model
     
     critical Cryptographic Isolation Loop (Zero-Knowledge Privacy)
-        REPO->>RUST: Invokes native JNA dynamic bindings (Foreign Function Invocation)
+        REPO->>RUST: Invokes native JNA dynamic bindings (Foreign Function FFI)
         Note over RUST: Executes AES-GCM / ChaCha20<br>Advances ephemeral key state (Ratchet Advance)
         RUST-->>REPO: Returns isolated three-part secure Base64 Ciphertext
     end
@@ -94,9 +135,13 @@ sequenceDiagram
 
     REPO->>UI: Transitions message lifecycle state markers onto dual-ticks verified
     UI-->>User: Renders verified double-check badges smoothly on bubble layout
+```
 
 ---
 
+## 🏗️ Architectural Dependency Graph
+
+```mermaid
 graph TD
     %% --- Presentation Tier ---
     subgraph Presentation_Layer [Presentation UI Tier]
@@ -128,6 +173,7 @@ graph TD
     style DATA fill:#0284C7,stroke:#333,stroke-width:2px,color:#fff
     style NETWORK fill:#0EA5E9,stroke:#333,stroke-width:1px,color:#fff
     style CRYPTO fill:#E11D48,stroke:#333,stroke-width:1px,color:#fff
+```
 
 ---
 
