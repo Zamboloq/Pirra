@@ -7,6 +7,7 @@
   <img src="https://shields.io" alt="Architecture" />
 </p>
 
+
 **Pirra** is a high-performance, decentralized, end-to-end encrypted messaging application architected for total communication privacy. By fusing a compiled native **Rust Core Engine** into a modern modular **Android (Kotlin)** UI stack and an independent **Ktor WebSocket backend**, Pirra achieves military-grade cryptographic secrecy with zero third-party dependencies.
 
 ---
@@ -54,6 +55,82 @@ graph TD
 
 ---
 
+sequenceDiagram
+    autonumber
+    actor User as 📱 Sender Client
+    participant UI as 🎨 :feature-chat<br>(Compose UI)
+    participant VM as ⚡ ChatViewModel<br>(MVI Machine)
+    participant REPO as 🧠 ChatRepositoryImpl<br>(Core Data Layer)
+    participant RUST as 🛡️ Native Rust Engine<br>(core-crypto via UniFFI)
+    participant KTOR as 🔌 Standalone Ktor Server<br>(Your MacBook Backend)
+
+    User->>UI: Triggers send intent (Voice recording / Photo selection)
+    
+    alt In-Memory Image Selection Execution
+        UI->>UI: Launches Photo Picker (API 35 Compliant)
+        UI->>UI: Compresses and downscales media bitstream inside RAM memory
+    else Acoustic Telemetry Capture Execution
+        UI->>UI: Arms AudioRecord and flushes raw PCM byte fragments
+    end
+
+    UI->>VM: Dispatches compressed binary payload packet via MVI Intent action
+    VM->>REPO: Delegates asset transfer payload inside Domain Message model
+    
+    critical Cryptographic Isolation Loop (Zero-Knowledge Privacy)
+        REPO->>RUST: Invokes native JNA dynamic bindings (Foreign Function Invocation)
+        Note over RUST: Executes AES-GCM / ChaCha20<br>Advances ephemeral key state (Ratchet Advance)
+        RUST-->>REPO: Returns isolated three-part secure Base64 Ciphertext
+    end
+
+    REPO->>REPO: Stores secure ciphertext frame into Local Room Database Cache
+    Note over REPO: Formulates generalized network packet configuration (ChatPayloadDto)
+    
+    REPO->>KTOR: Dispatches payload via HTTP POST to /send pathway (Loopback 10.0.2.2)
+    
+    activate KTOR
+    Note over KTOR: Intercepts JSON structure and caches<br>inside thread-safe memory registry map
+    KTOR-->>REPO: Dispatches successful delivery acknowledgment (HTTP 200 OK)
+    deactivate KTOR
+
+    REPO->>UI: Transitions message lifecycle state markers onto dual-ticks verified
+    UI-->>User: Renders verified double-check badges smoothly on bubble layout
+
+---
+
+graph TD
+    %% --- Presentation Tier ---
+    subgraph Presentation_Layer [Presentation UI Tier]
+        APP[":app Module<br>Application Hub / Bootstrapper"]
+        CHAT[":feature-chat Module<br>Jetpack Compose UI / MVI State Machines"]
+    end
+
+    %% --- Centralized Domain & Data Domain Tier ---
+    subgraph Domain_And_Data [Core Domain & Data Tier]
+        DATA[":core-data Module<br>Repositories / Room Local DB / Mappings / Domain Entities"]
+    end
+
+    %% --- Infrastructure Providers Tier ---
+    subgraph Infrastructure_Layer [Core Infrastructure Providers]
+        NETWORK[":core-network Module<br>Independent Standalone Ktor HTTP Client"]
+        CRYPTO[":core-crypto Module<br>UniFFI C-Bindings / Compiled libpirra_crypto.so Asset"]
+    end
+
+    %% --- Dependency Vectors Execution Directions ---
+    APP --> CHAT
+    APP --> DATA
+    CHAT --> DATA
+    DATA --> NETWORK
+    DATA --> CRYPTO
+
+    %% --- Visual Node Color Scheme Adjustments ---
+    style APP fill:#10B981,stroke:#333,stroke-width:1px,color:#fff
+    style CHAT fill:#3DDC84,stroke:#333,stroke-width:2px,color:#000
+    style DATA fill:#0284C7,stroke:#333,stroke-width:2px,color:#fff
+    style NETWORK fill:#0EA5E9,stroke:#333,stroke-width:1px,color:#fff
+    style CRYPTO fill:#E11D48,stroke:#333,stroke-width:1px,color:#fff
+
+---
+
 ## 🛠️ Technical Stack & Dependencies
 
 | Component | Technology | Description |
@@ -96,7 +173,7 @@ Pirra is architected upon the principle of **Zero-Knowledge Privacy**. Message h
 <p align="center" dir="auto">
   Core Engine designed & architected with engineering rigor by 
   <br>
-  <b><a href="https://github.com">Kian Shahini (Zamboloq)</a></b>
+  <b><a href="https://github.com">Kian M Shahini (Zamboloq)</a></b>
   <br>
   <i>Sovereign Software Engineer & Systems Architect</i>
 </p>
