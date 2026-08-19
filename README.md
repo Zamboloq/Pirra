@@ -1,9 +1,11 @@
 # 🔒 Pirra — Secure distributed Cryptographic Messaging Platform
 
-[![Platform](https://shields.io)](https://android.com)
-[![Language](https://shields.io)](https://kotlinlang.org)
-[![Backend](https://shields.io)](https://ktor.io)
-[![Architecture](https://shields.io)](https://android.com)
+<p align="left">
+  <img src="https://shields.io" alt="Platform" />
+  <img src="https://shields.io" alt="Language" />
+  <img src="https://shields.io" alt="Backend" />
+  <img src="https://shields.io" alt="Architecture" />
+</p>
 
 **Pirra** is a high-performance, decentralized, end-to-end encrypted messaging application architected for total communication privacy. By fusing a compiled native **Rust Core Engine** into a modern modular **Android (Kotlin)** UI stack and an independent **Ktor WebSocket backend**, Pirra achieves military-grade cryptographic secrecy with zero third-party dependencies.
 
@@ -73,7 +75,6 @@ To rebuild the native binary architecture layouts matching physical physical dyn
 cargo ndk -t aarch64-linux-android -o ./jniLibs build --release
 ```
 Ensure the freshly compiled dynamic asset `libpirra_crypto.so` is securely positioned under the matching target module hierarchy:
-:core-crypto/src/main/jniLibs/arm64-v8a/libpirra_crypto.so
 
 ### 2. Launching the Local Ktor Engine
 To fire up your decentralized WebSocket microservice routing server on your local MacBook workspace, execute the JVM application plugin run task:
@@ -92,10 +93,14 @@ Select your active physical device or emulator viewport inside Android Studio an
 Pirra is architected upon the principle of **Zero-Knowledge Privacy**. Message histories, audio packets, and media images are encrypted inside the Rust memory partition space before transmission. The detached Ktor server operates purely as an anonymous routing relay node, meaning no un-encrypted text strings ever touch the storage hardware or network wires.
 
 ---
-*Developed with Passion by **[Kian Shahini (Zamboloq)](https://github.com)** — Senior Android Engineer.* 🚀
+<p align="center" dir="auto">
+  Core Engine designed & architected with engineering rigor by 
+  <br>
+  <b><a href="https://github.com">Kian Shahini (Zamboloq)</a></b>
+  <br>
+  <i>Sovereign Software Engineer & Systems Architect</i>
+</p>
 
-
-
-
-
-
+<blockquote dir="auto">
+"A seasoned Software Engineering alumnus with over 15 years of deep production-level expertise in the Android ecosystem. Currently pioneering a holistic evolution into a multi-dimensional, elite Full-Stack Expert—mastering high-throughput backend services, declarative frontend/mobile web systems, native desktop runtime lifecycles, high-performance low-level bare-metal compilations, and large-scale complex distributed computer science architectures."
+</blockquote>
