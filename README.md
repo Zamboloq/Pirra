@@ -1,5 +1,8 @@
 # 🔒 Pirra — Secure distributed Cryptographic Messaging Platform
 
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2Fgithub-Android%20(API%2035)-green?logo=android&logoColor=green&label=Platform)
+
+
 <p align="left">
   <code><b>Platform:</b> Android (API 35)</code> | 
   <code><b>Languages:</b> Kotlin / 🦀 Rust Core</code> | 
