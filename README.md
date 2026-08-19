@@ -223,6 +223,17 @@ Pirra is architected upon the principle of **Zero-Knowledge Privacy**. Message h
   <i>Sovereign Software Engineer & Systems Architect</i>
 </p>
 
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F-Aesigned%20%26%20Architected-blue?style=plastic&logo=Pi&logoColor=white&logoSize=amd&label=PIRRA&labelColor=black&color=purple)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F-Kian%20M%20Shahini-blue?style=plastic&logoColor=white&logoSize=amd&label=Senior%20Software%20Engineer&labelColor=black&color=blue)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F-Kian%20M%20Shahini-blue?style=plastic&logoColor=white&logoSize=amd&label=Sovereign%20Systems%20Architect&labelColor=red&color=blue)
+
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F--blue?style=plastic&logo=Android&logoColor=green&logoSize=amd&label=Android&labelColor=gray&color=green)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F--blue?style=plastic&logo=Rust&logoColor=orange&logoSize=amd&label=Rust&labelColor=gray&color=orange)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F--blue?style=plastic&logo=Ktor&logoColor=purple&logoSize=amd&label=Ktor&labelColor=blue&color=orange)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F--blue?style=plastic&logo=Kotlin&logoColor=orange&logoSize=amd&label=Kotlin&labelColor=blue&color=orange)
+![Static Badge](https://img.shields.io/badge/https%3A%2F%2Fimg.shields.io%2Fbadge%2F-MVI-blue?style=plastic&logoColor=orange&logoSize=amd&label=Clean%20Architecture&labelColor=blue&color=orange)
+
+
 <blockquote dir="auto">
 "A seasoned Software Engineering alumnus with over 15 years of deep production-level expertise in the Android ecosystem. Currently pioneering a holistic evolution into a multi-dimensional, elite Full-Stack Expert—mastering high-throughput backend services, declarative frontend/mobile web systems, native desktop runtime lifecycles, high-performance low-level bare-metal compilations, and large-scale complex distributed computer science architectures."
 </blockquote>
